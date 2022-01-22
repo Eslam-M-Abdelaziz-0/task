@@ -1,0 +1,16 @@
+@import '../Variables/Variables';
+
+body {
+  margin: 0;
+  width: 100%;
+  background-color: $bg;
+  color: $dark;
+  font-family: $Luxurious;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
