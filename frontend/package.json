@@ -18,11 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-<<<<<<< HEAD
-    "deploy": "npm run build && aws s3 sync build/ s3://react-d ",
-=======
     "deploy": "npm run build && aws s3 sync build/ s3://react-d",
->>>>>>> fd9efa96d637c5f1e31ed79221bc3dc8bdf13a8a
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

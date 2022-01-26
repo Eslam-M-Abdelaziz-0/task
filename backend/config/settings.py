@@ -12,11 +12,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-import environ
-
-env = environ.Env()
-
-environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,17 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.environ.get("SECRET_KEY")
-SECRET_KEY = 'django-insecure-erzx+_eox(!&&he)(k6z*+fct&59h4k58%$dk0s9vep=ksrris'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = int(os.environ.get("DEBUG", default=0))
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=0))
+print("Seting >>> ", DEBUG)
 
-# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-ALLOWED_HOSTS = [localhost 127.0.0.1, [::1], 'http://react-d.s3-website.me-south-1.amazonaws.com']
-
-
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 # Application definition
 
@@ -52,7 +43,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'storages',
 
     # Local
     'api.apps.ApiConfig',
@@ -96,11 +86,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+        "USER": os.environ.get("SQL_USER", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("SQL_HOST", "localhost"),
+        "PORT": os.environ.get("SQL_PORT", "5432"),
     }
 }
+
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -111,16 +106,6 @@ DATABASES = {
 #     ]
 # }
 
-# DATABASES = {
-#    "default": {
-#        "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-#        "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / 'db.sqlite3'),
-#        "USER": os.environ.get("SQL_USER", "postgres"),
-#        "PASSWORD": os.environ.get("SQL_PASSWORD", "postgres"),
-#        "HOST": os.environ.get("SQL_HOST", "db"),
-#        "PORT": os.environ.get("SQL_PORT", "5432"),
-#    }
-# }
 
 
 

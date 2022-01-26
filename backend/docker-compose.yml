@@ -8,12 +8,11 @@ services:
     #                    gunicorn config.wsgi:application --bind 0.0.0.0:8000"
     #                    uwsgi --http :8000 --module config.wsgi "
     command: sh -c "python manage.py makemigrations &&
-                    python manage.py migrate &&
-                    python manage.py shell < create_admin.py &&
-                    python manage.py collectstatic --noinput &&
-                    python manage.py dumpdata > db_old.json &&
-                    gunicorn config.wsgi:application --bind 0.0.0.0:8000"
-
+      python manage.py migrate &&
+      python manage.py shell < create_admin.py &&
+      python manage.py collectstatic --noinput &&
+      python manage.py dumpdata > db_old.json &&
+      gunicorn config.wsgi:application --bind 0.0.0.0:8000"
 
     volumes:
       - .:/code:rw
@@ -21,8 +20,8 @@ services:
       - media_volume:/code/media
     expose:
       - 8000
-    #ports:
-    #  - 8000:8000
+    # ports:
+    #   - 8000:8000
     env_file:
       - ./.env
     depends_on:
@@ -32,7 +31,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - 'POSTGRES_HOST_AUTH_METHOD=trust'
 
   nginx:
     build: ./nginx
@@ -46,7 +45,6 @@ services:
       - media_volume:/code/media
     depends_on:
       - web
-
 
 volumes:
   postgres_data:
