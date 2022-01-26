@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "aws_region": "me-south-1",
+        "django_settings": "backend.config.settings",
+        "profile_name": "default",
+        "project_name": "task-zidship",
+        "runtime": "python3.7",
+        "s3_bucket": "zappa-zv517iovu"
+    }
+}

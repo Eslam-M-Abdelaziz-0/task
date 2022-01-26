@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import environ
+
+env = environ.Env()
+
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +26,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+# SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = 'django-insecure-erzx+_eox(!&&he)(k6z*+fct&59h4k58%$dk0s9vep=ksrris'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get("DEBUG", default=0))
+# DEBUG = int(os.environ.get("DEBUG", default=0))
+DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = [localhost 127.0.0.1, [::1], 'http://react-d.s3-website.me-south-1.amazonaws.com']
+
 
 
 # Application definition
@@ -43,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'storages',
 
     # Local
     'api.apps.ApiConfig',
@@ -154,3 +164,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# S3_BUCKET = 'backend-api-d'
+# STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
+# AWS_S3_BUCKET_NAME_STATIC = S3_BUCKET
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % S3_BUCKET
+# STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
