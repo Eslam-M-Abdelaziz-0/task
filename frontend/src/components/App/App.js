@@ -5,10 +5,11 @@ import Home from '../Home/Home';
 import About from '../About/About';
 import Navbar from '../Navbar/Navbar';
 import Contact from '../Contact/Contact';
+import Profile from '../Profile/Profile';
 
 function App() {
   return (
-    <div className='App'>
+    <div className='container'>
       <Router basename='/'>
         {/* Add Menu Component */}
         <Navbar />
@@ -17,6 +18,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route path='/about' component={About} />
           <Route path='/contact' component={Contact} />
+          <Route path='/profile' component={Profile} />
         </Switch>
       </Router>
     </div>

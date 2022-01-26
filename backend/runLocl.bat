@@ -12,3 +12,4 @@ set Admin_username=admin
 set Admin_email=admin@admin.com
 set Admin_password=admin
 
+python manage.py runserver

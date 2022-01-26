@@ -5,11 +5,11 @@ from django.core.validators import MaxValueValidator, MinValueValidator, RegexVa
 
 class Profile(models.Model):
     user = models.OneToOneField(User, unique=True, db_index=True ,on_delete=models.CASCADE)
-    fName = models.CharField(max_length=50)
-    lName = models.CharField(max_length=50)
+    fName = models.CharField(max_length=50, default='First Name')
+    lName = models.CharField(max_length=50, default='Last Name')
     isShipmentCompany = models.BooleanField(default=False)
     companyName = models.CharField(max_length=50, default='Non')
-    phone = models.CharField(max_length=11, validators=[RegexValidator(r'^\d{1,11}$')])
+    phone = models.CharField(max_length=11, validators=[RegexValidator(r'^\d{1,11}$')], null=True)
     pricePerKg = models.PositiveIntegerField(default=0)
 
     def __str__(self):
@@ -40,26 +40,10 @@ class Order(models.Model):
     price = models.PositiveIntegerField(blank=True, default=0)
     status=models.CharField(max_length=50,choices=STATUS, default='Pending')
     note = models.TextField(max_length=250, blank=True ,null=True)
+    rate = models.PositiveIntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)], default=0)
 
-    def rate(self):
-        try:
-            orderRate = OrderRate.objects.get(order=self)
-            return orderRate.stars
-        except:
-            return 0
 
     def __str__(self):
         return self.title
 
-class OrderRate(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    stars = models.PositiveIntegerField(validators=[MaxValueValidator(5), MinValueValidator(1)])
-
-    class Meta:
-        unique_together = (('user', 'order'),)
-        index_together = (('user', 'order'),)
-
-    def __str__(self):
-        return self.order.title
 

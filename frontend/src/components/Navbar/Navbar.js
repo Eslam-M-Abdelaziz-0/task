@@ -5,9 +5,9 @@ import logo from '../../img/logo.png';
 
 const Navbar = () => {
   return (
-    <div>
+    <div className='nav-bar'>
       <header className='header__middle'>
-        <div className='container'>
+        <div className='center'>
           {/* Add Logo */}
           <span className='header__middle_logo'>
             <NavLink exact activeClassName='is-active' to='/'>
@@ -32,6 +32,12 @@ const Navbar = () => {
               <li className='menu-item'>
                 <NavLink exact activeClassName='is-active' to={'/contact'}>
                   Contact
+                </NavLink>
+              </li>
+
+              <li className='menu-item'>
+                <NavLink exact activeClassName='is-active' to={'/profile'}>
+                  Profile
                 </NavLink>
               </li>
             </ul>
