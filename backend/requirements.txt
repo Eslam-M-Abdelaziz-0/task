@@ -1,0 +1,7 @@
+django==3.1.0
+gunicorn
+whitenoise
+pillow
+djangorestframework
+django-cors-headers
+django-rest-authtoken

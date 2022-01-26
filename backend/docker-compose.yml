@@ -1,0 +1,54 @@
+version: '3.3'
+
+services:
+  web:
+    build: .
+    #                    python manage.py runserver_plus 0.0.0.0:8000 --cert-file cert.crt &&
+    #                    python manage.py runserver 0.0.0.0:8000 &&
+    #                    gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+    #                    uwsgi --http :8000 --module config.wsgi "
+    command: sh -c "python manage.py makemigrations &&
+                    python manage.py migrate &&
+                    python manage.py shell < create_admin.py &&
+                    python manage.py collectstatic --noinput &&
+                    python manage.py dumpdata > db_old.json &&
+                    gunicorn config.wsgi:application --bind 0.0.0.0:8000"
+
+
+    volumes:
+      - .:/code:rw
+      - static_volume:/code/static
+      - media_volume:/code/media
+    expose:
+      - 8000
+    #ports:
+    #  - 8000:8000
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+  db:
+    image: postgres:11
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+  nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - 1300:80
+      #- 1300:443
+    volumes:
+      - .:/code
+      - static_volume:/code/static
+      - media_volume:/code/media
+    depends_on:
+      - web
+
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

@@ -1,0 +1,1 @@
+.\env\Scripts\activate & .\run-local.bat & cmd .
